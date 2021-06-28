@@ -1,0 +1,54 @@
+
+*************WoW********************
+
+*Lead Volume
+1
+
+*Lead volume L7
+if datediff('day',[Date Created-EST],today())<=7
+and datediff('day',[Date Created-EST],today())>0
+then [Lead Volume] END
+
+*Lead volume P7
+if datediff('day',[Date Created-EST],today())>=8
+and datediff('day',[Date Created-EST],today())<=14
+then [Lead Volume] END
+
+*Rev change WoW
+(sum([Revenue L7])-SUM([Revenue P7]))
+
+*Rev change WoW%
+(sum([Revenue L7])-SUM([Revenue P7]))/sum([Revenue P7])
+
+*********************SDLW*******************************
+*Rev same day last week
+if datediff('day',[Date Created-EST],today())=8
+then [Revenue] END
+
+
+*********************MoM*******************************
+
+*Lead volume last month
+if datediff('month',[Date Created-EST],today())=1
+then [Lead Volume] END
+
+*Rev Prior month
+if datediff('month',[Date Created-EST],today())=2
+then [Revenue] END
+
+*MoM Change
+(SUM([Lead Volume Last Month])-sum([Lead Volume Prior Month]))/sum([Lead Volume Prior Month])
+
+
+
+**********Tableau Dash Set Up********************
+
+Columns: Measure Names
+Rows: Dimensions
+Text: Measure Values
+
+Measure Values=
+SUM(CM L7)
+SUM(CM P7)
+AGG(CM Chg - WoW$)
+AGG(CM Chg - WoW%)
